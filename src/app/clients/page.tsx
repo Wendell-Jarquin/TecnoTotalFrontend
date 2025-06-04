@@ -99,30 +99,26 @@ export default function ClientsPage() {
                   <th className="py-2 px-4 border">Email</th>
                   <th className="py-2 px-4 border">Teléfono</th>
                   <th className="py-2 px-4 border">Dirección</th>
-                  <th className="py-2 px-4 border">Fecha de Nacimiento</th>
-                  <th className="py-2 px-4 border">Activo</th>
                   <th className="py-2 px-4 border">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {clientes.map((cliente) => (
-                  <tr key={cliente.id} className="border-t">
-                    <td className="py-2 px-4 border">{cliente.nombre}</td>
-                    <td className="py-2 px-4 border">{cliente.email}</td>
-                    <td className="py-2 px-4 border">{cliente.phoneNumber}</td>
-                    <td className="py-2 px-4 border">{cliente.address}</td>
-                    <td className="py-2 px-4 border">{cliente.dateOfBirth}</td>
-                    <td className="py-2 px-4 border">{cliente.isActive ? "Sí" : "No"}</td>
+                  <tr key={cliente.clientes_id}>
+                    <td className="py-2 px-4 border">{cliente.Nombre}</td>
+                    <td className="py-2 px-4 border">{cliente.Email}</td>
+                    <td className="py-2 px-4 border">{cliente.Telefono}</td>
+                    <td className="py-2 px-4 border">{cliente.Direccion}</td>
                     <td className="py-2 px-4 border flex gap-2">
                       <button
                         className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded"
-                        onClick={() => handleEdit(cliente.id)}
+                        onClick={() => handleEdit(cliente.clientes_id)}
                       >
                         Editar
                       </button>
                       <button
                         className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
-                        onClick={() => handleDelete(cliente.id)}
+                        onClick={() => handleDelete(cliente.clientes_id)}
                       >
                         Eliminar
                       </button>
@@ -131,7 +127,7 @@ export default function ClientsPage() {
                 ))}
                 {clientes.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="text-center py-4 text-gray-400">
+                    <td colSpan={5} className="text-center py-4 text-gray-400">
                       No hay clientes registrados.
                     </td>
                   </tr>

@@ -9,13 +9,21 @@ export interface Equipo {
   estado?: string;
 }
 
-// Crear equipo
+function getAuthHeaders() {
+  const token = localStorage.getItem("token");
+  return token
+    ? { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+    : { "Content-Type": "application/json" };
+}
+
+// Crear equipo (solo admin)
 export async function crearEquipo(equipo: Omit<Equipo, 'id'>) {
   const res = await fetch(`${API_URL}/equipos`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: getAuthHeaders(),
     body: JSON.stringify(equipo),
   });
+  if (res.status === 403) throw new Error("Esta función solo puede ser hecha por un administrador");
   if (!res.ok) throw new Error('Error al crear equipo');
   return res.json();
 }
@@ -34,22 +42,25 @@ export async function obtenerEquipo(id: number): Promise<Equipo> {
   return res.json();
 }
 
-// Actualizar equipo
+// Actualizar equipo (solo admin)
 export async function actualizarEquipo(id: number, equipo: Partial<Equipo>) {
   const res = await fetch(`${API_URL}/equipos/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: getAuthHeaders(),
     body: JSON.stringify(equipo),
   });
+  if (res.status === 403) throw new Error("Esta función solo puede ser hecha por un administrador");
   if (!res.ok) throw new Error('Error al actualizar equipo');
   return res.json();
 }
 
-// Eliminar equipo
+// Eliminar equipo (solo admin)
 export async function eliminarEquipo(id: number) {
   const res = await fetch(`${API_URL}/equipos/${id}`, {
     method: 'DELETE',
+    headers: getAuthHeaders(),
   });
+  if (res.status === 403) throw new Error("Esta función solo puede ser hecha por un administrador");
   if (!res.ok) throw new Error('Error al eliminar equipo');
   return res.json();
 }

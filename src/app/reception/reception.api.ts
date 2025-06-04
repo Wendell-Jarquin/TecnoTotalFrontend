@@ -1,5 +1,12 @@
 const API_URL = "http://localhost:4000/reparaciones";
 
+function getAuthHeaders() {
+  const token = localStorage.getItem("token");
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+  return headers;
+}
+
 export async function fetchReparaciones(page: number = 1, limit: number = 10) {
   const res = await fetch(`${API_URL}?page=${page}&limit=${limit}`);
   if (!res.ok) throw new Error("Error al obtener reparaciones");
@@ -14,9 +21,11 @@ export async function fetchReparacionById(id: number) {
 }
 
 export async function createReparacion(data: any) {
+  console.log('DTO recibido:', data);
+  
   const res = await fetch(API_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
   if (!res.ok) throw new Error("Error al crear reparación");
