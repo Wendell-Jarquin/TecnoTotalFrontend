@@ -25,19 +25,19 @@ export default function LoginPage() {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      console.log(result); // <-- Aquí deberías ver el objeto con fullName
+      console.log(result);
 
       const token = result.access_token || result.token;
       const user = {
         id: result.id,
         email: result.email,
-        fullName: result.fullName, // <-- así lo tomas directo
+        fullName: result.fullName,
       };
 
       if (res.ok && token && user?.id) {
         localStorage.setItem("token", token);
         localStorage.setItem("user_id", user.id);
-        localStorage.setItem("user_fullName", user.fullName); // <-- aquí lo guardas
+        localStorage.setItem("user_fullName", user.fullName);
         router.push("/dashboard");
       } else {
         setError(result.message || "Error al iniciar sesión");
@@ -93,6 +93,12 @@ export default function LoginPage() {
             Entrar
           </button>
         </form>
+        <button
+          onClick={() => router.push("/clients/register")}
+          className="mt-6 w-full bg-gray-200 hover:bg-gray-300 text-blue-700 py-2 rounded-lg font-semibold transition"
+        >
+          Registrarse
+        </button>
       </div>
     </div>
   );

@@ -7,6 +7,16 @@ function getAuthHeaders() {
     : { "Content-Type": "application/json" };
 }
 
+async function handleAdminResponse(res: Response) {
+  if (res.status === 403) {
+    throw new Error("Esta función solo puede ser hecha por un administrador");
+  }
+  if (!res.ok) {
+    throw new Error("Error en la operación");
+  }
+  return await res.json();
+}
+
 export async function fetchClientes() {
   const res = await fetch(API_URL, {
     headers: getAuthHeaders(),
@@ -29,8 +39,7 @@ export async function createCliente(data: any) {
     headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error("Error al crear cliente");
-  return await res.json();
+  return handleAdminResponse(res);
 }
 
 export async function updateCliente(id: number, data: any) {
@@ -39,8 +48,7 @@ export async function updateCliente(id: number, data: any) {
     headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error("Error al actualizar cliente");
-  return await res.json();
+  return handleAdminResponse(res);
 }
 
 export async function deleteCliente(id: number) {
@@ -48,6 +56,5 @@ export async function deleteCliente(id: number) {
     method: "DELETE",
     headers: getAuthHeaders(),
   });
-  if (!res.ok) throw new Error("Error al eliminar cliente");
-  return await res.json();
+  return handleAdminResponse(res);
 }

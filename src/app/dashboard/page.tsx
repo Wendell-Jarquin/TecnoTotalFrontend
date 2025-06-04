@@ -59,7 +59,7 @@ export default function Dashboard() {
         <Link href="/reparaciones" className="px-4 py-2 rounded bg-purple-600 text-white hover:bg-purple-700 font-medium transition">
            Gestión Reparaciones
         </Link>
-        <Link href="/clientes/gestionar" className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 font-medium transition">
+        <Link href="/clients" className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 font-medium transition">
           Gestión Clientes
         </Link>
         <Link href="/usuarios/gestionar" className="px-4 py-2 rounded bg-yellow-500 text-white hover:bg-yellow-600 font-medium transition">

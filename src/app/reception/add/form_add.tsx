@@ -15,11 +15,15 @@ export default function AddReparacionForm() {
   const [clientes, setClientes] = useState<any[]>([]);
   const [tecnicos, setTecnicos] = useState<any[]>([]);
   const [equipos, setEquipos] = useState<any[]>([]);
+  const [emailCliente, setEmailCliente] = useState("");
   const router = useRouter();
 
   useEffect(() => {
     // Cargar clientes
-    fetchClientes().then(res => setClientes(res.data || res || []));
+    fetchClientes().then(res => {
+      console.log("Clientes:", res.data || res || []);
+      setClientes(res.data || res || []);
+    });
     // Cargar tecnicos
     fetchTecnicos().then(res => setTecnicos(res || []));
     // Cargar equipos
@@ -38,8 +42,10 @@ export default function AddReparacionForm() {
       tecnicoAsignado: data.tecnicoAsignado || undefined,
       fechaIngreso: data.fechaIngreso,
       fechaEntrega: data.fechaEntrega || undefined,
+      emailCliente,
     };
     try {
+      console.log('DTO recibido:', payload);
       await createReparacion(payload);
       setSuccess("Reparación registrada correctamente.");
       reset();
@@ -71,6 +77,13 @@ export default function AddReparacionForm() {
             {...register("nombreCliente", { required: "El cliente es obligatorio" })}
             className="w-full border px-3 py-2 rounded"
             defaultValue=""
+            onChange={e => {
+              const selected = clientes.find(
+                c => c.nombre === e.target.value || c.Nombre === e.target.value
+              );
+              setEmailCliente(selected?.Email || "");
+              register("nombreCliente").onChange(e);
+            }}
           >
             <option value="" disabled>Seleccione un cliente</option>
             {clientes.map((cliente) => (
@@ -82,6 +95,16 @@ export default function AddReparacionForm() {
           {errors.nombreCliente && (
             <span className="text-red-500 text-sm">{errors.nombreCliente.message as string}</span>
           )}
+        </div>
+        <div>
+          <label className="block mb-1 font-medium">Email del Cliente</label>
+          <input
+            type="email"
+            value={emailCliente}
+            readOnly
+            className="w-full border px-3 py-2 rounded bg-gray-100"
+            tabIndex={-1}
+          />
         </div>
         <div>
           <label className="block mb-1 font-medium">Equipo</label>

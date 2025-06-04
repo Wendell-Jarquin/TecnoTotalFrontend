@@ -11,6 +11,13 @@ export interface Reparacion {
   fechaEntrega?: string;
 }
 
+function getAuthHeaders() {
+  const token = localStorage.getItem("token");
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+  return headers;
+}
+
 // Obtener todas las reparaciones
 export async function obtenerReparaciones(): Promise<Reparacion[]> {
   const res = await fetch(`${API_URL}/reparaciones`);
@@ -25,44 +32,51 @@ export async function obtenerReparacion(id: number): Promise<Reparacion> {
   return res.json();
 }
 
-// Crear una reparación
+// Crear una reparación (solo admin)
 export async function crearReparacion(reparacion: Omit<Reparacion, "id">) {
+  console.log("Token en localStorage:", localStorage.getItem("token"));
+  console.log("Headers que se enviarán:", getAuthHeaders());
   const res = await fetch(`${API_URL}/reparaciones`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(reparacion),
   });
+  if (res.status === 403) throw new Error("Esta función solo puede ser hecha por un administrador");
   if (!res.ok) throw new Error("Error al crear reparación");
   return res.json();
 }
 
-// Actualizar una reparación
+// Actualizar una reparación (solo admin)
 export async function actualizarReparacion(id: number, reparacion: Partial<Reparacion>) {
   const res = await fetch(`${API_URL}/reparaciones/${id}`, {
-    method: "PATCH", // <--- CAMBIA PUT POR PATCH
-    headers: { "Content-Type": "application/json" },
+    method: "PATCH",
+    headers: getAuthHeaders(),
     body: JSON.stringify(reparacion),
   });
+  if (res.status === 403) throw new Error("Esta función solo puede ser hecha por un administrador");
   if (!res.ok) throw new Error("Error al actualizar reparación");
   return res.json();
 }
 
-// Reemplazar una reparación
+// Reemplazar una reparación (solo admin)
 export async function reemplazarReparacion(id: number, reparacion: Reparacion) {
   const res = await fetch(`${API_URL}/reparaciones/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(reparacion),
   });
+  if (res.status === 403) throw new Error("Esta función solo puede ser hecha por un administrador");
   if (!res.ok) throw new Error("Error al reemplazar reparación");
   return res.json();
 }
 
-// Eliminar una reparación
+// Eliminar una reparación (solo admin)
 export async function eliminarReparacion(id: number) {
   const res = await fetch(`${API_URL}/reparaciones/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   });
+  if (res.status === 403) throw new Error("Esta función solo puede ser hecha por un administrador");
   if (!res.ok) throw new Error("Error al eliminar reparación");
   return res.json();
 }
