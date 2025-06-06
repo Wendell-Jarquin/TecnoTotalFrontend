@@ -22,12 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-      className={cn("min-h-screen background font-sans antialiased",
-        fontSans.variable
-      )}
-      >
-        <main className="container mx-auto pt-5">{children}</main>
+      <body className={cn("min-h-screen bg-gradient-to-br from-gray-100 to-blue-50 font-sans antialiased", fontSans.variable)}>
+        {children}
       </body>
     </html>
   );
