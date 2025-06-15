@@ -58,29 +58,29 @@ export default function ClientsPage() {
         <nav className="flex flex-col gap-2 mt-6">
           <Link
             href="/clients/add"
-            className="flex items-center gap-3 px-4 py-2 mb-8 text-white font-semibold bg-green-600 hover:bg-green-700 transition justify-center"
+            className="flex items-center gap-3 px-4 py-2 mb-8 text-white font-semibold bg-blue-600 hover:bg-blue-700 transition justify-center"
           >
             <FaUsers /> Agregar Cliente
           </Link>
-          <Link href="/dashboard" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3">  
+          <Link href="/dashboard" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3 hover:scale-105 active:scale-95">  
             <FaClipboardList /> Dashboard
           </Link>
-          <Link href="/clients" className="flex items-center gap-3 px-4 py-2 font-semibold bg-orange-200">
+          <Link href="/clients" className="flex items-center gap-3 px-4 py-2 font-semibold bg-orange-200 hover:scale-105 active:scale-95">
             <FaUsers /> Gestión Clientes
           </Link>
-          <Link href="/equipos/add" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3">
+          <Link href="/equipos/add" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3 hover:scale-105 active:scale-95">
             <FaLaptop /> Registro Equipos
           </Link>
-          <Link href="/reparaciones" className="flex items-center gap-3 px-4 py-2  font-semibold hover:bg-orange-100 transition mb-3">
+          <Link href="/reparaciones" className="flex items-center gap-3 px-4 py-2  font-semibold hover:bg-orange-100 transition mb-3 hover:scale-105 active:scale-95">
             <FaTools /> Gestión Reparaciones
           </Link>
-          <Link href="/technical" className="flex items-center gap-3 px-4 py-2  font-semibold hover:bg-orange-100 transition mb-3">
+          <Link href="/technical" className="flex items-center gap-3 px-4 py-2  font-semibold hover:bg-orange-100 transition mb-3 hover:scale-105 active:scale-95">
             <FaUserCog /> Gestión Técnicos
           </Link>
         </nav>
         <button
           onClick={handleLogout}
-          className="mt-auto flex items-center gap-2 px-4 py-2  text-red-700 font-semibold hover:bg-red-200 transition"
+          className="mt-auto flex items-center gap-2 px-4 py-2  text-red-700 font-semibold hover:bg-red-200 transition hover:scale-105 active:scale-95"
         >
           <FaSignOutAlt /> Cerrar Sesión
         </button>
@@ -118,11 +118,11 @@ export default function ClientsPage() {
                 <table className="min-w-full border-separate border-spacing-y-2">
                   <thead>
                     <tr className="bg-gradient-to-r from-blue-100 to-blue-50">
-                      <th className="py-3 px-4 rounded-l-xl text-blue-700 font-bold text-center">Nombre</th>
-                      <th className="py-3 px-4 text-blue-700 font-bold text-center">Email</th>
-                      <th className="py-3 px-4 text-blue-700 font-bold text-center">Teléfono</th>
-                      <th className="py-3 px-4 text-blue-700 font-bold text-center">Dirección</th>
-                      <th className="py-3 px-4 rounded-r-xl text-blue-700 font-bold text-center">Acciones</th>
+                      <th className="py-3 px-4 rounded-l-xl text-blue-700 font-bold text-left">Nombre</th>
+                      <th className="py-3 px-4 text-blue-700 font-bold text-left">Email</th>
+                      <th className="py-3 px-4 text-blue-700 font-bold text-left">Teléfono</th>
+                      <th className="py-3 px-4 text-blue-700 font-bold text-left">Dirección</th>
+                      <th className="py-3 px-4 rounded-r-xl text-blue-700 font-bold text-left">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -131,23 +131,29 @@ export default function ClientsPage() {
                         key={cliente.clientes_id}
                         className="hover:bg-blue-50 transition"
                       >
-                        <td className="py-2 px-4 bg-white rounded-l-lg border-blue-100 text-center">{cliente.Nombre}</td>
-                        <td className="py-2 px-4 bg-white border-blue-100 text-center">{cliente.Email}</td>
-                        <td className="py-2 px-4 bg-white border-blue-100 text-center">{cliente.Telefono}</td>
-                        <td className="py-2 px-4 bg-white border-blue-100 text-center">{cliente.Direccion}</td>
-                        <td className="py-2 px-4 bg-white rounded-r-lg border-blue-100 flex gap-2 justify-center">
+                        <td className="py-2 px-4 bg-white rounded-l-lg border-blue-100 text-left">{cliente.Nombre}</td>
+                        <td className="py-2 px-4 bg-white border-blue-100 text-left">{cliente.Email}</td>
+                        <td className="py-2 px-4 bg-white border-blue-100 text-left">{cliente.Telefono}</td>
+                        <td className="py-2 px-4 bg-white border-blue-100 text-left">{cliente.Direccion}</td>
+                        <td className="py-2 px-4 bg-white rounded-r-lg border-blue-100 flex gap-2 justify-start">
                           <button
-                            className="flex items-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded shadow transition"
+                            className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-2 rounded-lg shadow transition font-semibold border border-yellow-300 hover:scale-105 active:scale-95"
                             onClick={() => handleEdit(cliente.clientes_id)}
+                            title="Editar"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-2.828 1.172H7v-2a4 4 0 011.172-2.828z"/></svg>
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                              <path d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a4 4 0 01-2.828 1.172H7v-2a4 4 0 011.172-2.828z"/>
+                            </svg>
                             Editar
                           </button>
                           <button
-                            className="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded shadow transition"
+                            className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg shadow transition font-semibold border border-red-400 hover:scale-105 active:scale-95"
                             onClick={() => handleDelete(cliente.clientes_id)}
+                            title="Eliminar"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                              <path d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
                             Eliminar
                           </button>
                         </td>
@@ -155,7 +161,7 @@ export default function ClientsPage() {
                     ))}
                     {clientes.length === 0 && (
                       <tr>
-                        <td colSpan={5} className="text-center py-6 text-gray-400 bg-white rounded-lg">
+                        <td colSpan={5} className="text-left py-6 text-gray-400 bg-white rounded-lg">
                           No hay clientes registrados.
                         </td>
                       </tr>

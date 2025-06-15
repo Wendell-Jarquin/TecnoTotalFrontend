@@ -41,7 +41,22 @@ export default function AddReparacionForm() {
       clienteId: clienteSeleccionado?.clientes_id,
     };
     try {
-      await createReparacion(payload);
+      // 1. Crea la reparación (sin imagen)
+      const reparacion = await createReparacion(payload);
+
+      // 2. Si hay imagen, súbela y asóciala
+      if (data.imagen && data.imagen[0]) {
+        const formData = new FormData();
+        formData.append("imagen", data.imagen[0]);
+        await fetch(
+          `http://localhost:4000/reparaciones/${reparacion.id}/upload-imagen`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+      }
+
       setSuccess("Reparación registrada correctamente.");
       reset();
       setEquipoId("");
@@ -187,6 +202,15 @@ export default function AddReparacionForm() {
           <input
             {...register("fechaEntrega")}
             type="date"
+            className="w-full border px-3 py-2 rounded"
+          />
+        </div>
+        <div>
+          <label className="block mb-1 font-medium">Imagen (opcional)</label>
+          <input
+            type="file"
+            accept="image/*"
+            {...register("imagen")}
             className="w-full border px-3 py-2 rounded"
           />
         </div>

@@ -58,29 +58,29 @@ export default function TechnicalListPage() {
         <nav className="flex flex-col gap-2 mt-6">
           <Link
             href="/technical/add"
-            className="flex items-center gap-3 px-4 py-2 mb-8  text-white font-semibold bg-green-600 hover:bg-green-700 transition justify-center"
+            className="flex items-center gap-3 px-4 py-2 mb-8  text-white font-semibold bg-blue-600 hover:bg-blue-700 transition justify-center"
           >
             <FaUsers /> Agregar Tecnico
           </Link>
-          <Link href="/dashboard" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3">  
+          <Link href="/dashboard" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3 hover:scale-105 active:scale-95">  
             <FaClipboardList /> Dashboard
           </Link>
-          <Link href="/clients" className="flex items-center gap-3 px-4 py-2  font-semibold hover:bg-orange-100 transition mb-3">
+          <Link href="/clients" className="flex items-center gap-3 px-4 py-2  font-semibold hover:bg-orange-100 transition mb-3 hover:scale-105 active:scale-95">
             <FaUsers /> Gestión Clientes
           </Link>
-          <Link href="/equipos/add" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3">
+          <Link href="/equipos/add" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3 hover:scale-105 active:scale-95">
             <FaLaptop /> Registro Equipos
           </Link>
-          <Link href="/reparaciones" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3">
+          <Link href="/reparaciones" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3 hover:scale-105 active:scale-95">
             <FaTools /> Gestión Reparaciones
           </Link>
-          <Link href="/technical" className="flex items-center gap-3 px-4 py-2  font-semibold bg-orange-100">
+          <Link href="/technical" className="flex items-center gap-3 px-4 py-2  font-semibold bg-orange-100 hover:scale-105 active:scale-95">
             <FaUserCog /> Gestión Técnicos
           </Link>
         </nav>
         <button
           onClick={handleLogout}
-          className="mt-auto flex items-center gap-2 px-4 py-2  text-red-700 font-semibold hover:bg-red-200 transition"
+          className="mt-auto flex items-center gap-2 px-4 py-2  text-red-700 font-semibold hover:bg-red-200 transition hover:scale-105 active:scale-95"
         >
           <FaSignOutAlt /> Cerrar Sesión
         </button>
@@ -136,7 +136,7 @@ export default function TechnicalListPage() {
                           <td className="py-3 px-4 bg-white border-blue-100">{tecnico.especialidad}</td>
                           <td className="py-3 px-4 bg-white rounded-r-lg border-blue-100 flex gap-2 justify-center">
                             <button
-                              className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded shadow transition text-base font-semibold"
+                              className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg shadow transition text-base font-semibold hover:scale-105 active:scale-95"
                               onClick={() => handleEdit(tecnico.id)}
                             >
                               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -145,7 +145,7 @@ export default function TechnicalListPage() {
                               Editar
                             </button>
                             <button
-                              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow transition text-base font-semibold"
+                              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow transition text-base font-semibold hover:scale-105 active:scale-95"
                               onClick={() => handleDelete(tecnico.id)}
                             >
                               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

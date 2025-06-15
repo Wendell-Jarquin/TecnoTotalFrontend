@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createCliente } from "../clients.api";
 import Image from "next/image";
@@ -9,11 +9,17 @@ import Link from "next/link";
 import { FaUsers, FaTools, FaClipboardList, FaUserCog, FaSignOutAlt, FaLaptop } from "react-icons/fa";
 
 export default function AddClientForm() {
+  const [userName, setUserName] = useState("Usuario");
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
+    useEffect(() => {
+      const fullName = localStorage.getItem("user_fullName");
+      setUserName(fullName || "Usuario");
+    }, []);
+  
   const onSubmit = async (data: any) => {
     setError("");
     setSuccess("");
@@ -44,31 +50,33 @@ export default function AddClientForm() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-50 flex">
       {/* Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 bg-white border-r border-blue-100 shadow-lg px-8 py-6">
+       <aside className="hidden md:flex flex-col w-64 bg-white border-r border-blue-100 shadow-lg px-13 py-6">
         <div className="flex flex-col items-center mb-10">
-          <Image src="/images/logo.svg" alt="Logo" width={60} height={60} className="rounded-full mb-2" />
-          <span className="text-lg font-bold text-blue-700">TecnoTotal</span>
+          <Link href="/dashboard" className="flex flex-col items-center">
+            <Image src="/images/logo.svg" alt="Logo" width={120} height={120} className="rounded-full mb-2" />
+            <span className="text-lg font-bold text-orange-700">TecnoTotal</span>
+          </Link>
         </div>
         <nav className="flex flex-col gap-2 mt-6">
-          <Link href="/dashboard" className="flex items-center gap-3 px-4 py-2 rounded-lg text-blue-700 font-semibold bg-blue-100 hover:bg-blue-200 transition">
+          <Link href="/dashboard" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3">  
             <FaClipboardList /> Dashboard
           </Link>
-          <Link href="/clients" className="flex items-center gap-3 px-4 py-2 rounded-lg text-green-700 font-semibold hover:bg-green-100 transition">
+          <Link href="/clients" className="flex items-center gap-3 px-4 py-2 font-semibold bg-orange-200">
             <FaUsers /> Gestión Clientes
           </Link>
-          <Link href="/equipos/add" className="flex items-center gap-3 px-4 py-2 rounded-lg text-purple-700 font-semibold hover:bg-purple-100 transition">
+          <Link href="/equipos/add" className="flex items-center gap-3 px-4 py-2 font-semibold hover:bg-orange-100 transition mb-3">
             <FaLaptop /> Registro Equipos
           </Link>
-          <Link href="/reparaciones" className="flex items-center gap-3 px-4 py-2 rounded-lg text-purple-700 font-semibold hover:bg-purple-100 transition">
+          <Link href="/reparaciones" className="flex items-center gap-3 px-4 py-2  font-semibold hover:bg-orange-100 transition mb-3">
             <FaTools /> Gestión Reparaciones
           </Link>
-          <Link href="/technical" className="flex items-center gap-3 px-4 py-2 rounded-lg text-yellow-700 font-semibold hover:bg-yellow-100 transition">
+          <Link href="/technical" className="flex items-center gap-3 px-4 py-2  font-semibold hover:bg-orange-100 transition mb-3">
             <FaUserCog /> Gestión Técnicos
           </Link>
         </nav>
         <button
           onClick={handleLogout}
-          className="mt-auto flex items-center gap-2 px-4 py-2 rounded-lg bg-red-100 text-red-700 font-semibold hover:bg-red-200 transition"
+          className="mt-auto flex items-center gap-2 px-4 py-2  text-red-700 font-semibold hover:bg-red-200 transition"
         >
           <FaSignOutAlt /> Cerrar Sesión
         </button>
@@ -77,12 +85,24 @@ export default function AddClientForm() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <header className="w-full bg-white shadow flex items-center justify-between px-6 py-4 border-b border-blue-100">
-          <div className="flex items-center gap-3">
-            <Image src="/images/logo.svg" alt="Logo" width={40} height={40} className="rounded-full" />
-            <span className="text-xl font-bold text-gray-700 tracking-wide">PANEL DE ADMINISTRACION</span>
-          </div>
-        </header>
+        <header className="w-full bg-white shadow flex items-center justify-between px-6 py-4 border-b border-orange-500">
+                <div className="flex-1 flex justify-center">
+                  <span className="text-xl font-bold text-orange-700 tracking-wide">
+                    REGISTRAR CLIENTE
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button className="bg-blue-100 text-blue-700 px-4 py-2 rounded font-semibold cursor-default">
+                    {userName}
+                  </button>
+                  <button
+                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded font-semibold ml-2"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>
+          </header>
 
         {/* Main Form Content */}
         <main className="flex-1 py-10 px-4 md:px-10 bg-gradient-to-br from-blue-50 to-white flex items-center justify-center">
@@ -152,12 +172,21 @@ export default function AddClientForm() {
                   <span className="text-red-500 text-sm">{errors.Email.message as string}</span>
                 )}
               </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold"
-              >
-                Registrar Cliente
-              </button>
+              <div className="flex gap-2">
+                <button
+                  type="submit"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold"
+                >
+                  Registrar Cliente
+                </button>
+                <button
+                  type="button"
+                  onClick={() => router.push("/clients")}
+                  className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded font-semibold"
+                >
+                  Cancelar
+                </button>
+              </div>
             </form>
           </div>
         </main>

@@ -5,7 +5,7 @@ import TechnicalForm from './technical-form';
 function TechnicalAddPage() {
   return (
     <div className="h-screen flex justify-center items-center">
-      <Card className="w-full max-w-4xl">
+      <Card className="w-full">
         <CardHeader>
           <CardTitle></CardTitle>
         </CardHeader>

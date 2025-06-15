@@ -58,6 +58,9 @@ export default function Avisar() {
       componentes: [''],
       detalles: '',
     });
+    setTimeout(() => {
+      router.push("/reparaciones");
+    }, 1200); // 1.2 segundos para mostrar el mensaje
   };
 
   return (
@@ -126,19 +129,21 @@ export default function Avisar() {
               rows={4}
             />
           </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition"
-          >
-            Enviar aviso
-          </button>
-          <button
-            type="button"
-            onClick={() => router.back()}
-            className="w-full mt-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition"
-          >
-            Regresar
-          </button>
+          <div className="flex gap-4">
+            <button
+              type="submit"
+              className="w-1/2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition hover:scale-105 active:scale-95"
+            >
+              Enviar aviso
+            </button>
+            <button
+              type="button"
+              onClick={() => router.back()}
+              className="w-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition hover:scale-105 active:scale-95"
+            >
+              Regresar
+            </button>
+          </div>
         </form>
         {mensaje && <p className="mt-4 text-center text-green-600">{mensaje}</p>}
       </div>
